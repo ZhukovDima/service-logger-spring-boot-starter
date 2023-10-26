@@ -13,6 +13,7 @@
     <url>https://www.example.com</url>
 
     <modules>
+        <module>parent</module>
         <module>file-manager-service</module>
         <module>service-logger-spring-boot-starter</module>
     </modules>
