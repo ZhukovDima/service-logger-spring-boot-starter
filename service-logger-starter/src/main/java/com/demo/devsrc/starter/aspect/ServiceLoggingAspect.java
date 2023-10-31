@@ -1,26 +1,24 @@
 package com.demo.devsrc.starter.aspect;
 
-import com.demo.devsrc.starter.autoconfigure.LoggingProperties;
-import lombok.RequiredArgsConstructor;
+import com.demo.devsrc.starter.annotation.ExcludeLogging;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.StringJoiner;
 import java.util.logging.Logger;
 
 /**
  * Аспект, перехватывающий выполнение методов класса с аннотацией {@link org.springframework.stereotype.Service}
  * и логирующий вызов метода
  */
-@RequiredArgsConstructor
+
 @Aspect
 public class ServiceLoggingAspect {
-
-    private final LoggingProperties loggingProperties;
 
     @Pointcut("within(@org.springframework.stereotype.Service *)")
     public void anyServiceMethod() {}
@@ -36,16 +34,17 @@ public class ServiceLoggingAspect {
             Method method = ms.getMethod();
             builder.append(method.getName());
 
-            Annotation[][] parameterAnnotations = method.getParameterAnnotations();
-            String[] parameterNames = ms.getParameterNames();
+            Parameter[] parameters = method.getParameters();
             builder.append(" args: [");
-            for(int i = 0; i < parameterAnnotations.length; i++){
-                Object[] args = pjp.getArgs();
-                String parameterName = parameterNames[i];
-                if (!loggingProperties.getArgs().contains(parameterName)) {
-                    builder.append("\"").append(args[i]).append("\"");
+            StringJoiner joiner = new StringJoiner(", ");
+            for(int i = 0; i < parameters.length; i++) {
+                Parameter parameter = parameters[i];
+                if (!parameter.isAnnotationPresent(ExcludeLogging.class)) {
+                    Object[] args = pjp.getArgs();
+                    joiner.add("\"" + args[i] + "\"");
                 }
             }
+            builder.append(joiner);
             builder.append("]");
             log.info(builder.toString());
         }
