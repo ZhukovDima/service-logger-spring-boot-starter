@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<artifactId>parent</artifactId>
-		<groupId>com.srcdev</groupId>
-		<relativePath>../parent/pom.xml</relativePath>
-		<version>0.0.1</version>
-	</parent>
-	<artifactId>file-manager-service</artifactId>
-	<name>File manager service</name>
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>com.demo.devsrc</groupId>
+        <relativePath>../parent/pom.xml</relativePath>
+        <version>0.0.1</version>
+    </parent>
 
-	<dependencies>
+    <artifactId>file-manager-service</artifactId>
+    <name>File manager service</name>
 
-	</dependencies>
+    <build>
+        <finalName>file-manager</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>service-logger-starter</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,0 +1,8 @@
+{
+  "properties": [{
+    "name": "libname.enabled",
+    "type": "java.lang.Boolean",
+    "defaultValue": false,
+    "description": "Включить автоконфигурацию библиотеки по логированию методов класса помеченных аннтотацией org.springframework.stereotype.Service"
+  }]
+}
