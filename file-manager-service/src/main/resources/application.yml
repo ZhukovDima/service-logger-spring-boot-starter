@@ -1,1 +1,5 @@
-
+libname:
+  enabled: true
+  exclude:
+    args:
+      - password
