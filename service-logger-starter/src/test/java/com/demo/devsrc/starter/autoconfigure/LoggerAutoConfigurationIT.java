@@ -20,8 +20,7 @@ public class LoggerAutoConfigurationIT {
                 .run(ctx -> {
                     assertThat(ctx)
                             .hasNotFailed()
-                            .hasSingleBean(ServiceLoggingAspect.class)
-                            .getBean(LoggingProperties.class).hasNoNullFieldsOrProperties();
+                            .hasSingleBean(ServiceLoggingAspect.class);
                 });
     }
 

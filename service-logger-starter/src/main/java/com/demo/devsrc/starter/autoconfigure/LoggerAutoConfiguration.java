@@ -9,12 +9,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @EnableAspectJAutoProxy
 @Configuration
-@EnableConfigurationProperties(LoggingProperties.class)
 @ConditionalOnProperty(value = "libname.enabled", havingValue = "true")
 public class LoggerAutoConfiguration {
 
     @Bean
-    public ServiceLoggingAspect serviceLoggingAspect(LoggingProperties loggingProperties) {
-        return new ServiceLoggingAspect(loggingProperties);
+    public ServiceLoggingAspect serviceLoggingAspect() {
+        return new ServiceLoggingAspect();
     }
 }
