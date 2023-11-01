@@ -29,7 +29,7 @@ public class ServiceLoggingAspect {
     @Around("anyServiceMethod()")
     public Object beforeAnyFileServiceMethod(ProceedingJoinPoint pjp) throws Throwable {
         if (pjp.getSignature() instanceof MethodSignature ms) {
-            Logger log = Logger.getLogger(pjp.getSignature().getDeclaringType().getName());
+            Logger log = Logger.getLogger(pjp.getSignature().getDeclaringTypeName());
             StringBuilder builder = new StringBuilder();
             Method method = ms.getMethod();
             builder.append(method.getName());
