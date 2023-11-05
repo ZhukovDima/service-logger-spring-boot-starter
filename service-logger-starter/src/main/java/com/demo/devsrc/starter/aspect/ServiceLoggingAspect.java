@@ -1,6 +1,6 @@
 package com.demo.devsrc.starter.aspect;
 
-import com.demo.devsrc.starter.annotation.ExcludeLogging;
+import com.demo.devsrc.starter.annotation.IgnoreLogging;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -39,7 +39,7 @@ public class ServiceLoggingAspect {
             StringJoiner joiner = new StringJoiner(", ");
             for(int i = 0; i < parameters.length; i++) {
                 Parameter parameter = parameters[i];
-                if (!parameter.isAnnotationPresent(ExcludeLogging.class)) {
+                if (!parameter.isAnnotationPresent(IgnoreLogging.class)) {
                     Object[] args = pjp.getArgs();
                     joiner.add("\"" + args[i] + "\"");
                 }

@@ -1,6 +1,6 @@
 package com.demo.devsrc.starter.aspect;
 
-import com.demo.devsrc.starter.annotation.ExcludeLogging;
+import com.demo.devsrc.starter.annotation.IgnoreLogging;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,7 @@ public class ServiceLoggingAspectTest {
         Mockito.when(signature.getMethod()).thenReturn(method);
         Mockito.when(method.getName()).thenReturn("saveToDb");
         Mockito.when(method.getParameters()).thenReturn(new Parameter[]{parameter});
-        Mockito.when(parameter.isAnnotationPresent(ExcludeLogging.class)).thenReturn(true);
+        Mockito.when(parameter.isAnnotationPresent(IgnoreLogging.class)).thenReturn(true);
         Mockito.when(joinPoint.getArgs()).thenReturn(new Object[]{"file.txt"});
 
         MockedStatic<Logger> logger = Mockito.mockStatic(Logger.class);

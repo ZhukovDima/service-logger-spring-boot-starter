@@ -1,2 +1,26 @@
 libname:
   enabled: true
+
+server:
+  port: 8085
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1MB
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    username: user
+    password: password
+    url: jdbc:postgresql://localhost:5432/topjava
+    hikari:
+      maximum-pool-size: 100
+      connection-timeout: 5000
+      idle-timeout: 12000
+      minimum-idle: 2
