@@ -2,35 +2,39 @@ package com.demo.devsrc.filemanager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
 
-@NoArgsConstructor
-@Setter
-@Getter
 @Entity
-@Table(name = "files")
+@Table(name = "files", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}, name = "file_uk")})
+@Getter
+@Setter
+@NoArgsConstructor
 public class File {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     @Column(name = "name", nullable = false)
+    @NotBlank
+    @Size(max = 100)
     private String name;
 
-    @NotNull
     @Column(name = "content_type", nullable = false)
+    @NotBlank
+    @Size(max = 100)
     private String contentType;
 
-    @NotNull
-    @Lob
     @Column(name = "data", nullable = false)
+    @Lob
+    @NotNull
     @JsonIgnore
     private byte[] data;
 
