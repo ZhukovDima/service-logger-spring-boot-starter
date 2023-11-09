@@ -1,7 +1,6 @@
 package com.demo.devsrc.filemanager.service;
 
 import com.demo.devsrc.filemanager.error.IllegalRequestDataException;
-import com.demo.devsrc.filemanager.error.NotFoundException;
 import com.demo.devsrc.filemanager.model.File;
 import com.demo.devsrc.filemanager.repository.FileRepository;
 import com.demo.devsrc.starter.annotation.IgnoreLogging;
@@ -26,7 +25,7 @@ public class FileStorageService {
     public File get(String name) {
         Optional<File> file = fileRepository.getByName(name);
         if (file.isEmpty()) {
-            throw new NotFoundException("File not found with name " + name);
+            throw new IllegalRequestDataException("File not found with name " + name);
         }
         return file.get();
     }

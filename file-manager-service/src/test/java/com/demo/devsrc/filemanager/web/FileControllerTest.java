@@ -1,4 +1,4 @@
-package com.demo.devsrc.filemanager.controller;
+package com.demo.devsrc.filemanager.web;
 
 import com.demo.devsrc.filemanager.model.File;
 import com.demo.devsrc.filemanager.service.FileStorageService;

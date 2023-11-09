@@ -1,4 +1,4 @@
-package com.demo.devsrc.filemanager.controller;
+package com.demo.devsrc.filemanager.web;
 
 import com.demo.devsrc.filemanager.model.File;
 import jakarta.annotation.PostConstruct;
@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -64,7 +65,16 @@ public class FileControllerIT {
         created.setName("test.txt");
 
         mockMvc.perform(MockMvcRequestBuilders.multipart(FileController.REST_API).file(file))
+                .andDo(print())
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void saveEmptyFile() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("file", "empty.txt", "text/plain", new byte[0]);
+        mockMvc.perform(MockMvcRequestBuilders.multipart(FileController.REST_API).file(file))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
