@@ -1,4 +1,4 @@
-package com.demo.devsrc.filemanager.controller;
+package com.demo.devsrc.filemanager.web;
 
 import com.demo.devsrc.filemanager.error.IllegalRequestDataException;
 import com.demo.devsrc.filemanager.model.File;
@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,8 +28,8 @@ public class FileController {
     public ResponseEntity<File> save(@RequestParam("file") MultipartFile file) {
         log.info("save {}", file);
 
-        if (!StringUtils.hasLength(file.getOriginalFilename())) {
-            throw new IllegalRequestDataException("The field file is empty.");
+        if (file == null || file.isEmpty()) {
+            throw new IllegalRequestDataException("The uploaded file is either null or empty. Please ensure that a file is selected and not left blank.");
         }
 
         File created = fileStorageService.save(file);
